@@ -1,0 +1,4 @@
+include: arc_easy.yaml
+task: arc_challenge
+dataset_name: ARC-Challenge #null #
+#dataset_path: #/home/chensh/hub/dataset/lm_eval/ai2_arc/ARC-Challenge 

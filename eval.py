@@ -29,7 +29,7 @@ if __name__ == "__main__":
     parser.add_argument('--save_path', type=str, required=True, help='Path to save the results')
     parser.add_argument('--sparsity', type=float, required=True, help="Sparsity of the model")
     parser.add_argument('--sparse_mode', type=str, required=True, help='Sparse approach, can be wina or teal')
-    parser.add_argument('--eval_tasks', type=list, required=True, default=['piqa','arc_challenge','winogrande','hellaswag','mmlu','gsm8k'])
+    parser.add_argument('--eval_tasks', type=list, required=False, default=['piqa','arc_challenge','winogrande','hellaswag','mmlu','gsm8k'])
     parser.add_argument('--greedy', action="store_true", default=False, help='Flags for greedy')
     parser.add_argument('--mask_by', type=str, default='topk', help="Element selection strategy, can be 'topk' or 'threshold'")
     parser.add_argument('--transform', action='store_true', default=False, help='Flag for tensor transformation')

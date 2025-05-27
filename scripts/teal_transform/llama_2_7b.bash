@@ -6,8 +6,8 @@ MODEL_TYPE=Llama-2-7B
 SPARSE_MODE='teal'
 
 # compute sparsity for each layer
-python teal/grab_acts.py --model_name $MODEL_NAME --output_path $OUTPUT_PATH --sparse_mode $SPARSE_MODE --transform
-python teal/greedyopt.py --model_name $MODEL_NAME --output_path $OUTPUT_PATH --sparse_mode $SPARSE_MODE --model_type $MODEL_TYPE --transform
+python wina/grab_acts.py --model_name $MODEL_NAME --output_path $OUTPUT_PATH --sparse_mode $SPARSE_MODE --transform
+python wina/greedyopt.py --model_name $MODEL_NAME --output_path $OUTPUT_PATH --sparse_mode $SPARSE_MODE --model_type $MODEL_TYPE --transform
 
 # topk-based gate
 mask_by='topk'

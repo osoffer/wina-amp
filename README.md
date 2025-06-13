@@ -1,5 +1,7 @@
 # WINA: Weight Informed Neuron Activation for Accelerating Large Language Model Inference
 
+\[[paper](https://arxiv.org/abs/2505.19427)\]
+
 <div  align="center">    
 <img src="figures/overview.png"  width="360" height="200" />
 </div>
@@ -103,3 +105,16 @@ bash scripts/teal_transform/llama_3_8b.bash [MODEL_PATH]
 bash scripts/teal_transform/phi_4_14b.bash [MODEL_PATH]
 ```
 
+## Citation
+If you find this repo useful, please consider citing:
+```
+@misc{chen2025winaweightinformedneuron,
+      title={WINA: Weight Informed Neuron Activation for Accelerating Large Language Model Inference}, 
+      author={Sihan Chen and Dan Zhao and Jongwoo Ko and Colby Banbury and Huiping Zhuang and Luming Liang and Tianyi Chen},
+      year={2025},
+      eprint={2505.19427},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2505.19427}, 
+}
+```

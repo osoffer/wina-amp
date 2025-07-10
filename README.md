@@ -16,7 +16,7 @@ It cobines how active a neuron is (activation) with how important its connection
 This enables for a better estimation of neuron contribution to the final output, resulting in more effective pruning and faster inference without retraining: 60%-60% FLOP reduction with minimal performance loss, up to 2.94% better accuracy than TEAL according to the paper. All the aformentioned methods are training-free, requiring an activation analysis run.
 <br><br>
 ## 🎯 Problem
-Current sparse activation methods (e.g., WINA, TEAL) optimize for dataset-wide averages, but different inputs may hold fundamentally different neural computation patterns. This one-size-fits-all approach leaves performance on the table.
+Current sparse activation methods (e.g., WINA, TEAL) optimize for dataset-wide averages, but different inputs may hold fundamentally different neural computation patterns. This one-size-fits-all approach potentially leaves performance on the table, probably even if the dataset is task or subject based.
 
 This project explores **cluster-based profile discovery & optimization** to push WINA's performance even further.
 <br><br>
@@ -39,6 +39,7 @@ What are the latency vs. accuracy trade-offs when using cluster-based profiles?
 3.  **Cluster input samples** based on similarity of their neural activation patterns.  
 4. **Generate new cluster-specific WINA score histograms** using the identified clusters, on the same benchmark training set.  
 5.  **Evaluate cluster-based WINA optimization profiles** on the benchmark training\* set.  
+<br>
 
 At this point, we've evaluated whether **cluster-specific profiles** outperform the **uniform profile** on the **training set**.  
 This evaluation serves as a **basic validation**, and is subject to **data leakage**, since the same set is used for both clustering and evaluation. This is temporary measure, taken since we don't have an input profile classifier yet.

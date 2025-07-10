@@ -46,7 +46,7 @@ We currently need to find a strategy for classifying an input to cluster-profile
 - Train an input-profile classifier, using input embeddings
 - Freeze WINA scores for initial model layers, and use their results to cluster the inputs - requiring creating initial layer cluster profiles
 
-<img src="path/to/image.svg" width="300" />
+<img src="figures/research_flow.svg" width="500" />
 
 ## Contents
 - [Install](#Install)

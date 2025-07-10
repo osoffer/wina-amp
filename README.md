@@ -1,18 +1,52 @@
-# WINA: Weight Informed Neuron Activation for Accelerating Large Language Model Inference
+# 🚀 WINA-AMP: WINA Activation Magnitude Profile optimization
 
-\[[paper](https://arxiv.org/abs/2505.19427)\]
+[![Original WINA](https://img.shields.io/badge/Based%20on-Microsoft%2FWINA-blue.svg)](https://github.com/microsoft/wina)
+[![Paper](https://img.shields.io/badge/arXiv-2505.19427-red.svg)](https://arxiv.org/abs/2505.19427)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://python.org)
 
-<div  align="center">    
-<img src="figures/overview.png"  width="360" height="200" />
-</div>
+*This repository builds on Microsoft's WINA framework (theoretical and implementation foundations) to develop cluster-specific sparse activation profiles for improved LLM inference efficiency.*
 
-This repository is the Pytorch implementation of **WINA** (**W**eight **I**nformed **N**euron **A**ctivation). WINA is a novel, simple, and training-free sparse activation framework that jointly considers hidden state magnitudes and the column-wise ℓ2-norms of weight matrices. We show that this leads to a sparsification strategy that obtains optimal approximation error bounds with theoretical guarantees tighter than existing techniques. Empirically, WINA also outperforms state-of-the-art methods in average performance at the same sparsity levels, across a diverse set of LLM architectures and datasets. These results position WINA as a new performance frontier for training-free sparse activation in LLM inference, advancing training-free sparse activation methods and setting a robust baseline for efficient inference.
+## What's WINA
+**WINA (Weight-Informed Neuron Activation)** is a framework from Microsoft that accelerates LLM inference by selectively masking sparse activation neurons during computation. Previous methods, such as TEAL and CATS, score neuron importance by using **activation magnitude** `|x|`. In contrast, WINA introduces the criterion of:
 
-The current release supports:
-* Llama-2-7B
-* Llama-3-8B
-* Qwen-2.5-7B
-* Phi-4 (14B)
+**WINA Score** = `|activation × weight_norm|`. It cobines how active a neuron is (activation) with how important its connections are (weight_norm). 
+
+This enables for a better estimation of neuron contribution to the final output, resulting in more effective pruning and faster inference without retraining: 60%-60% FLOP reduction with minimal performance loss, up to 2.94% better accuracy than TEAL according to the paper. All the aformentioned methods are training-free, requiring an activation analysis run.
+
+## 🎯 Problem
+Current sparse activation methods (e.g., WINA, TEAL) optimize for dataset-wide averages, but different inputs may hold fundamentally different neural computation patterns. This one-size-fits-all approach leaves performance on the table.
+
+This project explores **cluster-based profile optimization** to push WINA's performance even further.
+
+## 🔬 Research Questions
+**Neural Pattern Discovery**  
+Do similar inputs (e.g., by task or subject) naturally cluster by neuron activation patterns?
+
+**Cluster-Profile Optimization**  
+Can specialized WINA profiles per cluster outperform global, uniform pruning strategies?
+
+**Input Neuron Profile Classification**  
+What are effective and efficient ways to classify new samples into neural-behavioral clusters?
+
+**Performance Trade-offs**  
+What are the latency vs. accuracy trade-offs when using cluster-based profiles?
+
+## 🔧 Technical Methodology
+1. **Generate WINA-based score histograms** on a benchmark training set, with attribution to individual input samples.
+2. **Evaluate uniform WINA optimization** on the same benchmark training\* set (accuracy, compute).
+3. **Cluster input samples** based on similarity of their neural activation patterns.
+4. **Generate new cluster-specific WINA score histograms** using the identified clusters, on the same benchmark training set.
+5. **Evaluate cluster-based WINA optimization profiles** on the benchmark training\* set.
+
+At this point, we've evaluated whether **cluster-specific profiles** outperform the **uniform profile** on the **training set**.  
+This evaluation serves as a **basic validation**, and is subject to **data leakage**, since the same set is used for both clustering and evaluation. This is temporary measure, taken since we don't have an input profile classifier yet.
+
+We currently need to find a strategy for classifying an input to cluster-profile. Potential strategies:
+- Train an input-profile classifier, using input embeddings
+- Freeze WINA scores for initial model layers, and use their results to cluster the inputs - requiring creating initial layer cluster profiles
+
+<img src="path/to/image.svg" width="300" />
 
 ## Contents
 - [Install](#Install)
